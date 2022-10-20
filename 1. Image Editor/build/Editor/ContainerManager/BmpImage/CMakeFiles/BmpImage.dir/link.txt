@@ -1,0 +1,2 @@
+/usr/bin/ar qc libBmpImage.a CMakeFiles/BmpImage.dir/BmpImage.cpp.o
+/usr/bin/ranlib libBmpImage.a

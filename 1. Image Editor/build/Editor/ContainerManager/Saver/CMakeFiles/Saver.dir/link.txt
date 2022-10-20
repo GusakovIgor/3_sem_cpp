@@ -1,0 +1,2 @@
+/usr/bin/ar qc libSaver.a CMakeFiles/Saver.dir/Saver.cpp.o
+/usr/bin/ranlib libSaver.a

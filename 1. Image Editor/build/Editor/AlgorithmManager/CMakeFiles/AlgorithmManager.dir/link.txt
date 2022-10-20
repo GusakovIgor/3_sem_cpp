@@ -1,0 +1,2 @@
+/usr/bin/ar qc libAlgorithmManager.a CMakeFiles/AlgorithmManager.dir/AlgorithmManager.cpp.o
+/usr/bin/ranlib libAlgorithmManager.a
