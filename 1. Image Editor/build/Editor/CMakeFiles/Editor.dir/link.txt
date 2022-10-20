@@ -1,2 +1,0 @@
-/usr/bin/ar qc libEditor.a CMakeFiles/Editor.dir/Editor.cpp.o
-/usr/bin/ranlib libEditor.a

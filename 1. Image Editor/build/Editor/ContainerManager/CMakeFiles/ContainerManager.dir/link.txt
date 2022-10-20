@@ -1,2 +1,0 @@
-/usr/bin/ar qc libContainerManager.a CMakeFiles/ContainerManager.dir/ContainerManager.cpp.o
-/usr/bin/ranlib libContainerManager.a

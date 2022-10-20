@@ -1,2 +1,0 @@
-/usr/bin/ar qc libInputManager.a CMakeFiles/InputManager.dir/InputManager.cpp.o
-/usr/bin/ranlib libInputManager.a
