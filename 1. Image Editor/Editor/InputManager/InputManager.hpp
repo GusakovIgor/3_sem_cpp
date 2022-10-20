@@ -14,17 +14,15 @@ class InputManager
 
 public:
 
-	InputManager (Command** command);
-	InputManager (Command** command, const int argc, const char* argv[]);
+	InputManager ();
+	InputManager (const int argc, const char* argv[]);
 	~InputManager ();
 
-	bool ParseCommand ();
+	Command* ParseCommand ();
 
 private:
 
 	std::streambuf* initial_input;
-
-	Command** current_command;
 
 	CommandFactory* command_factory;
 };

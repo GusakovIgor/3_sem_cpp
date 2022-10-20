@@ -1,6 +1,11 @@
 #ifndef CONTAINER_MANAGER_HPP
 #define CONTAINER_MANAGER_HPP
 
+
+class ContainerManager;
+
+typedef void (ContainerManager::*ContainerManagerCommandPtr) (Command* command);
+
 class ContainerManager
 {
 
@@ -9,7 +14,7 @@ public:
 	ContainerManager ();
 	~ContainerManager ();
 
-	void Execute (Command** command);
+	void Execute (Command* command);
 
 	void LoadImageToContainer   (Command* load_image_base);
 	void SaveImageFromContainer (Command* save_image_base);
@@ -28,7 +33,16 @@ private:
 	Loader* loader;
 	Saver*  saver;
 
-	unordered_map <CommandType, void (ContainerManager::*) (Command* command)> operations;
+	const unordered_map <CommandType, ContainerManagerCommandPtr> operations =
+	{
+		{CommandType::cmd_load, &ContainerManager::LoadImageToContainer},
+		{CommandType::cmd_save, &ContainerManager::SaveImageFromContainer},
+
+		{CommandType::cmd_add_container,    &ContainerManager::AddContainer},
+		{CommandType::cmd_del_container,    &ContainerManager::DelContainer},
+		{CommandType::cmd_list_containers,  &ContainerManager::ListContainers},
+		{CommandType::cmd_switch_container, &ContainerManager::SwitchContainer}
+	};
 };
 
 

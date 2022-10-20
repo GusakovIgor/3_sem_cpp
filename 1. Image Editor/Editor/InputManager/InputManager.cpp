@@ -5,17 +5,13 @@
 #include "InputManager.hpp"
 
 
-InputManager::InputManager (Command** command)
+InputManager::InputManager ()
 {
-	current_command = command;
-
 	initial_input = std::cin.rdbuf ();
 }
 
-InputManager::InputManager (Command** command, const int argc, const char* argv[])
+InputManager::InputManager (const int argc, const char* argv[])
 {
-	current_command = command;
-
 	initial_input = std::cin.rdbuf ();
 
 	string input_base;
@@ -40,26 +36,26 @@ InputManager::~InputManager ()
 	std::cin.rdbuf (initial_input);
 }
 
-bool InputManager::ParseCommand ()
+Command* InputManager::ParseCommand ()
 {
 	if (std::cin.eof ())
 	{
-		return false;
+		return nullptr;
 	}
 
 	string cmd_name;
 	std::cin >> cmd_name;
 
-	*current_command = command_factory->New (cmd_name);
+	Command* new_command = command_factory->New (cmd_name);
 
-	if (*current_command == nullptr)
+	if (!new_command)
 	{
 		std::cout << "Unknowkn command: \"" << cmd_name << "\"" << std::endl;
 
-		return false;
+		return nullptr;
 	}
 
-	std::cin >> **current_command;
+	std::cin >> *new_command;
 
-	return true;
+	return new_command;
 }

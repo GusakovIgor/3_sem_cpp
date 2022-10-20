@@ -233,6 +233,33 @@ int SwitchContainerCmd::TargetContainer ()
 
 
 
+ListDirectoryCmd::ListDirectoryCmd () : Command (CommandType::cmd_ls)
+{}
+
+std::istream& ListDirectoryCmd::operator_in (std::istream& stream)
+{
+
+
+	return stream;
+}
+
+
+ChangeDirectoryCmd::ChangeDirectoryCmd () : Command (CommandType::cmd_cd)
+{}
+
+std::istream& ChangeDirectoryCmd::operator_in (std::istream& stream)
+{
+	stream >> target_directory;
+
+	return stream;
+}
+
+string ChangeDirectoryCmd::TargetDirectory ()
+{
+	return target_directory;
+}
+
+
 ExitCmd::ExitCmd () : Command (CommandType::cmd_exit)
 {}
 

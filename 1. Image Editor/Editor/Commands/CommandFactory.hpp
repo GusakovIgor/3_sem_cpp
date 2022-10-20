@@ -27,6 +27,8 @@ private:
 	static Command* NewAddContainerCmd ();
 	static Command* NewDelContainerCmd ();
 	static Command* NewSwitchContainerCmd ();
+	static Command* NewListDirectoryCmd ();
+	static Command* NewChangeDirectoryCmd ();
 	static Command* NewExitCmd ();
 	static Command* NewHelpCmd ();
 
@@ -51,6 +53,8 @@ private:
 		{"del",    CommandFactory::NewDelContainerCmd},
 		{"switch", CommandFactory::NewSwitchContainerCmd},
 
+		{"ls", CommandFactory::NewListDirectoryCmd},
+		{"cd", CommandFactory::NewChangeDirectoryCmd},
 		{"exit", CommandFactory::NewExitCmd},
 		{"help", CommandFactory::NewHelpCmd}
 	};

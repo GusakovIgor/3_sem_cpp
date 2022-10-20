@@ -15,14 +15,6 @@ ContainerManager::ContainerManager ()
 
 	loader = new Loader ();
 	saver  = new Saver  ();
-
-	operations[CommandType::cmd_load] = &ContainerManager::LoadImageToContainer;
-	operations[CommandType::cmd_save] = &ContainerManager::SaveImageFromContainer;
-
-	operations[CommandType::cmd_add_container]    = &ContainerManager::AddContainer;
-	operations[CommandType::cmd_del_container]    = &ContainerManager::DelContainer;
-	operations[CommandType::cmd_list_containers]  = &ContainerManager::ListContainers;
-	operations[CommandType::cmd_switch_container] = &ContainerManager::SwitchContainer;
 }
 
 ContainerManager::~ContainerManager ()
@@ -36,13 +28,17 @@ ContainerManager::~ContainerManager ()
 	delete saver;
 }
 
-void ContainerManager::Execute (Command** command)
+void ContainerManager::Execute (Command* command)
 {
-	if (operations.contains ((*command)->Type ()))
+	if (operations.contains (command->Type ()))
 	{
-		std::invoke (operations.at ((*command)->Type ()), *this, *command);
+		std::invoke (operations.at (command->Type ()), *this, command);
 
-		*command = nullptr;
+		delete command;
+	}
+	else
+	{
+		// Image processing
 	}
 }
 

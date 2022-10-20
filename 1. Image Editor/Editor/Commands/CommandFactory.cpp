@@ -95,6 +95,16 @@ Command* CommandFactory::NewSwitchContainerCmd ()
 	return new SwitchContainerCmd ();
 }
 
+Command* CommandFactory::NewListDirectoryCmd ()
+{
+	return new ListDirectoryCmd ();
+}
+
+Command* CommandFactory::NewChangeDirectoryCmd ()
+{
+	return new ChangeDirectoryCmd ();
+}
+
 Command* CommandFactory::NewExitCmd ()
 {
 	return new ExitCmd ();

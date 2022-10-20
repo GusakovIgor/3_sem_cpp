@@ -27,6 +27,8 @@ enum class CommandType
 	cmd_del_container,
 	cmd_switch_container,
 
+	cmd_ls,
+	cmd_cd,
 	cmd_exit,
 	cmd_help
 };
@@ -300,6 +302,35 @@ private:
 
 };
 
+
+class ListDirectoryCmd : public Command
+{
+
+public:
+
+	ListDirectoryCmd ();
+	std::istream& operator_in (std::istream& stream) override;
+
+private:
+
+
+};
+
+
+class ChangeDirectoryCmd : public Command
+{
+
+public:
+
+	ChangeDirectoryCmd ();
+	std::istream& operator_in (std::istream& stream) override;
+
+	string TargetDirectory ();
+
+private:
+
+	string target_directory;
+};
 
 
 class HelpCmd : public Command
