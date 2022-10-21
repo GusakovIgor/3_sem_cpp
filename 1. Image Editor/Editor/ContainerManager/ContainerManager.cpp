@@ -1,6 +1,6 @@
+#include <Commands.hpp>
 #include <Image.hpp>
 #include <Container.hpp>
-#include <Commands.hpp>
 #include <BmpImage.hpp>
 #include <Loader.hpp>
 #include <Saver.hpp>
@@ -11,7 +11,8 @@
 
 ContainerManager::ContainerManager ()
 {
-	active_container = -1;
+	active_container = 0;
+	containers.push_back (new Container ("default"));
 
 	loader = new Loader ();
 	saver  = new Saver  ();
@@ -38,7 +39,10 @@ void ContainerManager::Execute (Command* command)
 	}
 	else
 	{
-		// Image processing
+		if (0 <= active_container && active_container < containers.size ())
+		{
+			containers[active_container]->Execute (command);
+		}
 	}
 }
 

@@ -1,8 +1,8 @@
-#include <Image.hpp>
-#include <Container.hpp>
 #include <Commands.hpp>
 #include <CommandFactory.hpp>
 #include <InputManager.hpp>
+#include <Image.hpp>
+#include <Container.hpp>
 #include <BmpImage.hpp>
 #include <Loader.hpp>
 #include <Saver.hpp>

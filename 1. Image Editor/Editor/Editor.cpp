@@ -1,8 +1,8 @@
-#include <Image.hpp>
-#include <Container.hpp>
 #include <Commands.hpp>
 #include <CommandFactory.hpp>
 #include <InputManager.hpp>
+#include <Image.hpp>
+#include <Container.hpp>
 #include <BmpImage.hpp>
 #include <Loader.hpp>
 #include <Saver.hpp>
@@ -30,7 +30,6 @@ Editor::Editor (const int argc, const char* argv[])
 	}
 
 	container_manager = new ContainerManager ();
-
 }
 
 Editor::~Editor ()
@@ -47,7 +46,10 @@ void Editor::operator() ()
 	{
 		Command* new_command = input_manager->ParseCommand ();
 
-		Execute (new_command);
+		if (new_command)
+		{
+			Execute (new_command);
+		}
 	}
 }
 

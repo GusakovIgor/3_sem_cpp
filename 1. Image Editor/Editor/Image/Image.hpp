@@ -35,6 +35,9 @@ struct Image
     Image (const int32_t init_width,
            const int32_t init_height);
 
+    auto begin ();
+    auto end ();
+
     int32_t width;
     int32_t height;
 

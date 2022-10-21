@@ -1,5 +1,3 @@
-#include <Image.hpp>
-#include <Container.hpp>
 #include <Commands.hpp>
 #include <CommandFactory.hpp>
 #include "InputManager.hpp"
@@ -25,10 +23,17 @@ InputManager::InputManager (const int argc, const char* argv[])
 			new_token = options_to_commands.at (new_token);
 		}
 
-		input_base += new_token + " ";
+		input_base += new_token;
+
+		if (i != argc - 1)
+		{
+			input_base += " ";
+		}
 	}
 
-	std::cin.rdbuf (std::stringstream (input_base).rdbuf ());
+	actual_input = std::stringstream (input_base);
+
+	std::cin.rdbuf (actual_input.rdbuf ());
 }
 
 InputManager::~InputManager ()
@@ -40,7 +45,7 @@ Command* InputManager::ParseCommand ()
 {
 	if (std::cin.eof ())
 	{
-		return nullptr;
+		return command_factory->New ("exit");
 	}
 
 	string cmd_name;

@@ -1,5 +1,3 @@
-#include <Image.hpp>
-#include <Container.hpp>
 #include "Commands.hpp"
 
 Command::Command (CommandType init_type)

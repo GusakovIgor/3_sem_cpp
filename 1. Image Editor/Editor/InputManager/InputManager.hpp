@@ -23,6 +23,7 @@ public:
 private:
 
 	std::streambuf* initial_input;
+	std::stringstream actual_input;
 
 	CommandFactory* command_factory;
 };

@@ -1,6 +1,7 @@
 #ifndef EDITOR_HPP
 #define EDITOR_HPP
 
+
 class Editor;
 
 typedef void (Editor::*EditorCommandPtr) (Command* command);
