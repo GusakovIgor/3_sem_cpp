@@ -1,6 +1,7 @@
 #include "Commands.hpp"
 #include "CommandFactory.hpp"
 
+
 Command* CommandFactory::New (const string& command_name)
 {
 	if (constructor.contains (command_name))
@@ -12,6 +13,7 @@ Command* CommandFactory::New (const string& command_name)
 
 	return nullptr;
 }
+
 
 Command* CommandFactory::NewNegativeCmd ()
 {
@@ -63,6 +65,12 @@ Command* CommandFactory::NewCompressCmd ()
 	return new CompressCmd ();
 }
 
+Command* CommandFactory::NewCancelCmd ()
+{
+	return new CancelCmd ();
+}
+
+
 Command* CommandFactory::NewLoadCmd ()
 {
 	return new LoadCmd ();
@@ -92,6 +100,7 @@ Command* CommandFactory::NewSwitchContainerCmd ()
 {
 	return new SwitchContainerCmd ();
 }
+
 
 Command* CommandFactory::NewListDirectoryCmd ()
 {

@@ -18,10 +18,10 @@ enum class CommandType
 	cmd_vignette,
 	cmd_crop,
 	cmd_compress,
+	cmd_cancel,
 
 	cmd_load,
 	cmd_save,
-
 	cmd_list_containers,
 	cmd_add_container,
 	cmd_del_container,
@@ -185,6 +185,20 @@ class CompressCmd : public Command
 public:
 
 	CompressCmd ();
+	std::istream& operator_in (std::istream& stream) override;
+
+private:
+
+
+};
+
+
+class CancelCmd : public Command
+{
+
+public:
+
+	CancelCmd ();
 	std::istream& operator_in (std::istream& stream) override;
 
 private:

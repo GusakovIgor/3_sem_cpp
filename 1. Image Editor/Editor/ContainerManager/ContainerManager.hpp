@@ -4,7 +4,7 @@
 
 class ContainerManager;
 
-typedef void (ContainerManager::*ContainerManagerCommandPtr) (Command* command);
+typedef void (ContainerManager::*ContainerManagerCmdPtr) (Command* command);
 
 class ContainerManager
 {
@@ -16,14 +16,6 @@ public:
 
 	void Execute (Command* command);
 
-	void LoadImageToContainer   (Command* load_image_base);
-	void SaveImageFromContainer (Command* save_image_base);
-
-	void AddContainer    (Command* add_container_base);
-	void DelContainer    (Command* del_container_base);
-	void ListContainers  (Command* list_containers_base);
-	void SwitchContainer (Command* swicth_container_base);
-
 private:
 
 	int active_container;
@@ -33,7 +25,15 @@ private:
 	Loader* loader;
 	Saver*  saver;
 
-	const unordered_map <CommandType, ContainerManagerCommandPtr> operations =
+	void LoadImageToContainer   (Command* load_image_base);
+	void SaveImageFromContainer (Command* save_image_base);
+
+	void AddContainer    (Command* add_container_base);
+	void DelContainer    (Command* del_container_base);
+	void ListContainers  (Command* list_containers_base);
+	void SwitchContainer (Command* swicth_container_base);
+
+	const unordered_map <CommandType, ContainerManagerCmdPtr> operations =
 	{
 		{CommandType::cmd_load, &ContainerManager::LoadImageToContainer},
 		{CommandType::cmd_save, &ContainerManager::SaveImageFromContainer},

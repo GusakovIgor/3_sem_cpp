@@ -21,12 +21,15 @@ private:
 	static Command* NewVignetteCmd ();
 	static Command* NewCropCmd ();
 	static Command* NewCompressCmd ();
+	static Command* NewCancelCmd ();
+
 	static Command* NewLoadCmd ();
 	static Command* NewSaveCmd ();
 	static Command* NewListContainersCmd ();
 	static Command* NewAddContainerCmd ();
 	static Command* NewDelContainerCmd ();
 	static Command* NewSwitchContainerCmd ();
+
 	static Command* NewListDirectoryCmd ();
 	static Command* NewChangeDirectoryCmd ();
 	static Command* NewExitCmd ();
@@ -35,27 +38,27 @@ private:
 	inline static const unordered_map <string, cmd_ctr_t> constructor
 	{
 		{"negative", 		CommandFactory::NewNegativeCmd},
-		{"replace_color", 	CommandFactory::NewReplaceColorCmd}, // from to
+		{"replace_color", 	CommandFactory::NewReplaceColorCmd},
 		{"improve_clarity",	CommandFactory::NewImproveClarityCmd},
 		{"gaussian_filter", CommandFactory::NewGaussianFilterCmd},
 		{"grey_filter", 	CommandFactory::NewGreyFilterCmd},
 		{"edge_detection",  CommandFactory::NewEdgeDetectionCmd},
 		{"reduce_noise", 	CommandFactory::NewReduceNoiseCmd},
 		{"vignette", 		CommandFactory::NewVignetteCmd},
-		{"crop", 			CommandFactory::NewCropCmd}, // (x,y,width, height)
-		{"compress", 		CommandFactory::NewCompressCmd}, // a_new, b_new
+		{"crop", 			CommandFactory::NewCropCmd},
+		{"compress", 		CommandFactory::NewCompressCmd},
+		{"cancel", 			CommandFactory::NewCancelCmd},
 
-		{"load", CommandFactory::NewLoadCmd},
-		{"save", CommandFactory::NewSaveCmd},
+		{"load", 	CommandFactory::NewLoadCmd},
+		{"save", 	CommandFactory::NewSaveCmd},
+		{"list",   	CommandFactory::NewListContainersCmd},
+		{"add",    	CommandFactory::NewAddContainerCmd},
+		{"del",    	CommandFactory::NewDelContainerCmd},
+		{"switch", 	CommandFactory::NewSwitchContainerCmd},
 
-		{"list",   CommandFactory::NewListContainersCmd},
-		{"add",    CommandFactory::NewAddContainerCmd},
-		{"del",    CommandFactory::NewDelContainerCmd},
-		{"switch", CommandFactory::NewSwitchContainerCmd},
-
-		{"ls", CommandFactory::NewListDirectoryCmd},
-		{"cd", CommandFactory::NewChangeDirectoryCmd},
-		{"exit", CommandFactory::NewExitCmd},
-		{"help", CommandFactory::NewHelpCmd}
+		{"ls", 		CommandFactory::NewListDirectoryCmd},
+		{"cd", 		CommandFactory::NewChangeDirectoryCmd},
+		{"exit", 	CommandFactory::NewExitCmd},
+		{"help", 	CommandFactory::NewHelpCmd}
 	};
 };

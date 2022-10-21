@@ -1,5 +1,6 @@
 #include "Commands.hpp"
 
+
 Command::Command (CommandType init_type)
 {
 	type = init_type;
@@ -16,6 +17,7 @@ std::istream& operator >> (std::istream& stream, Command& command)
 }
 
 
+
 NegativeCmd::NegativeCmd () : Command (CommandType::cmd_negative)
 {}
 
@@ -25,7 +27,6 @@ std::istream& NegativeCmd::operator_in (std::istream& stream)
 
 	return stream;
 }
-
 
 
 ReplaceColorCmd::ReplaceColorCmd () : Command (CommandType::cmd_replace_color)
@@ -39,7 +40,6 @@ std::istream& ReplaceColorCmd::operator_in (std::istream& stream)
 }
 
 
-
 ImproveClarityCmd::ImproveClarityCmd () : Command (CommandType::cmd_improve_clarity)
 {}
 
@@ -49,7 +49,6 @@ std::istream& ImproveClarityCmd::operator_in (std::istream& stream)
 
 	return stream;
 }
-
 
 
 GaussianFilterCmd::GaussianFilterCmd () : Command (CommandType::cmd_gaussian_filter)
@@ -63,7 +62,6 @@ std::istream& GaussianFilterCmd::operator_in (std::istream& stream)
 }
 
 
-
 GreyFilterCmd::GreyFilterCmd () : Command (CommandType::cmd_grey_filter)
 {}
 
@@ -73,7 +71,6 @@ std::istream& GreyFilterCmd::operator_in (std::istream& stream)
 
 	return stream;
 }
-
 
 
 EdgeDetectionCmd::EdgeDetectionCmd () : Command (CommandType::cmd_edge_detection)
@@ -87,7 +84,6 @@ std::istream& EdgeDetectionCmd::operator_in (std::istream& stream)
 }
 
 
-
 ReduceNoiseCmd::ReduceNoiseCmd () : Command (CommandType::cmd_reduce_noise)
 {}
 
@@ -97,7 +93,6 @@ std::istream& ReduceNoiseCmd::operator_in (std::istream& stream)
 
 	return stream;
 }
-
 
 
 VignetteCmd::VignetteCmd () : Command (CommandType::cmd_vignette)
@@ -111,7 +106,6 @@ std::istream& VignetteCmd::operator_in (std::istream& stream)
 }
 
 
-
 CropCmd::CropCmd () : Command (CommandType::cmd_crop)
 {}
 
@@ -121,7 +115,6 @@ std::istream& CropCmd::operator_in (std::istream& stream)
 
 	return stream;
 }
-
 
 
 CompressCmd::CompressCmd () : Command (CommandType::cmd_compress)
@@ -134,6 +127,16 @@ std::istream& CompressCmd::operator_in (std::istream& stream)
 	return stream;
 }
 
+
+CancelCmd::CancelCmd () : Command (CommandType::cmd_cancel)
+{}
+
+std::istream& CancelCmd::operator_in (std::istream& stream)
+{
+
+
+	return stream;
+}
 
 
 
@@ -169,7 +172,6 @@ string SaveCmd::Name ()
 }
 
 
-
 ListContainersCmd::ListContainersCmd () : Command (CommandType::cmd_list_containers)
 {}
 
@@ -179,7 +181,6 @@ std::istream& ListContainersCmd::operator_in (std::istream& stream)
 
 	return stream;
 }
-
 
 
 AddContainerCmd::AddContainerCmd () : Command (CommandType::cmd_add_container)

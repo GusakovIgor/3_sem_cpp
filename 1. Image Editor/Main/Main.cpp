@@ -12,9 +12,9 @@
 
 int main (const int argc, const char* argv[])
 {
-	Editor ImageEditor = Editor (argc, argv);
+	Editor image_editor = Editor (argc, argv);
 
-	ImageEditor ();
+	image_editor ();
 
 	return 0;
 }

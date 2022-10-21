@@ -39,9 +39,13 @@ void ContainerManager::Execute (Command* command)
 	}
 	else
 	{
-		if (0 <= active_container && active_container < containers.size ())
+		if (command->Type () != CommandType::cmd_cancel)
 		{
 			containers[active_container]->Execute (command);
+		}
+		else
+		{
+			containers[active_container]->Cancel ();
 		}
 	}
 }
