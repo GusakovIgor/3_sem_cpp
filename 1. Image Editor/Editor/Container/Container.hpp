@@ -11,7 +11,8 @@ using std::queue;
 
 class Container;
 
-typedef void (Container::*ContainerCmdPtr) (Command* command);
+typedef bool (Container::*ContainerCmdPtr) (Command* command);
+typedef void (Container::*ContainerRevCmdPtr) (Command* command);
 
 class Container
 {
@@ -38,16 +39,16 @@ private:
 	Image* image;
 	queue <Command*> applied_commands;
 
-	void Negative 		(Command* negative_base);
-	void ReplaceColor 	(Command* replace_color_base);
-	void ImproveClarity (Command* improve_clarity_base);
-	void GaussianFilter (Command* gaussian_filter_base);
-	void GreyFilter 	(Command* grey_filter_base);
-	void EdgeDetection 	(Command* edge_detection_base);
-	void ReduceNoise 	(Command* reduce_noise_base);
-	void Vignette 		(Command* vignette_base);
-	void Crop 			(Command* crop_base);
-	void Compress 		(Command* compress_base);
+	bool Negative 		(Command* negative_base);
+	bool ReplaceColor 	(Command* replace_color_base);
+	bool ImproveClarity (Command* improve_clarity_base);
+	bool GaussianFilter (Command* gaussian_filter_base);
+	bool GreyFilter 	(Command* grey_filter_base);
+	bool EdgeDetection 	(Command* edge_detection_base);
+	bool ReduceNoise 	(Command* reduce_noise_base);
+	bool Vignette 		(Command* vignette_base);
+	bool Crop 			(Command* crop_base);
+	bool Compress 		(Command* compress_base);
 
 	const unordered_map <CommandType, ContainerCmdPtr> operations =
 	{
@@ -74,7 +75,7 @@ private:
 	void RevCrop 			(Command* crop_base);
 	void RevCompress 		(Command* compress_base);
 
-	const unordered_map <CommandType, ContainerCmdPtr> rev_operations =
+	const unordered_map <CommandType, ContainerRevCmdPtr> rev_operations =
 	{
 		{CommandType::cmd_negative, 		&Container::RevNegative 		},
 		{CommandType::cmd_replace_color, 	&Container::RevReplaceColor 	},

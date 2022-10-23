@@ -15,7 +15,7 @@ public:
     Saver ();
     Saver (const int argc, const char* argv[]);
 
-    void SaveImage (const string& image, const Image* image_storage);
+    void SaveImage (const string& image, Image* image_storage);
 
 private:
 

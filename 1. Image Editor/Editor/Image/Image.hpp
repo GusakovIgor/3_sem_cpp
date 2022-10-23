@@ -23,10 +23,10 @@ struct Pixel
     uint8_t r;
     uint8_t g;
     uint8_t b;
-};
+} __attribute ((__packed__));
 
-ifstream& operator >> (ifstream& input,        Pixel& pixel);
-ofstream& operator << (ofstream& output, const Pixel& pixel);
+istream& operator >> (istream& input, Pixel& pixel);
+bool operator == (const Pixel& left, const Pixel& right);
 
 
 struct Image
@@ -35,15 +35,26 @@ struct Image
     Image (const int32_t init_width,
            const int32_t init_height);
 
+    Image (const BmpHeader& init_header,
+           const BmpInfoHeader& init_dib_header,
+           const BmpColorHeader& init_colour_header);
+
+    int32_t Size () const;
+
     auto begin ();
     auto end ();
+
+    void ApplyFilterMatrix (const vector <vector <float>>& filter);
 
     int32_t width;
     int32_t height;
 
     vector <vector <Pixel>> pixels;
 
-    int32_t Size () const;
+    BmpHeader      header;
+    BmpInfoHeader  dib_header;
+    BmpColorHeader colour_header;
+
 };
 
 ifstream& operator >> (ifstream& input,        Image& image);

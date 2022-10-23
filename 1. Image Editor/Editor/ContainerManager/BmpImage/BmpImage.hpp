@@ -14,42 +14,43 @@ using std::ofstream;
 
 struct BmpHeader
 {
-    BmpHeader ();
+    // BmpHeader ();
 
-    uint16_t type;          /* Magic identifier                         */
-    uint32_t size;          /* File size in bytes                       */
-    uint16_t reserved_1;    /* Depends on the application created image */
-    uint16_t reserved_2;    /* Depends on the application created image */
-    uint32_t offset;        /* Offset to image data, bytes              */
-
-    int32_t RealSize () const;
-
-};
-
-ifstream& operator >> (ifstream& input,        BmpHeader& header);
-ofstream& operator << (ofstream& output, const BmpHeader& header);
+    uint16_t type {0x4d42};     /* Magic identifier                         */
+    uint32_t size {0};          /* File size in bytes                       */
+    uint16_t reserved_1 {0};    /* Depends on the application created image */
+    uint16_t reserved_2 {0};    /* Depends on the application created image */
+    uint32_t offset {0};        /* Offset to image data, bytes              */
+} __attribute ((__packed__));
 
 
 struct BmpInfoHeader
 {
-    BmpInfoHeader ();
+    // BmpInfoHeader ();
 
-    uint32_t header_size;       /* Header size in bytes    */
-    int32_t  width;             /* Width of image          */
-    int32_t  height;            /* Height of image         */
-    uint16_t planes;            /* Number of colour planes */
-    uint16_t bits_per_pix;      /* Bits per pixel          */
-    uint32_t compression;       /* Compression type        */
-    uint32_t image_size;        /* Image size in bytes     */
-    int32_t  x_resolution;      /* Pixels per meter        */
-    int32_t  y_resolution;      /* Pixels per meter        */
-    uint32_t num_colours;       /* Number of colours       */
-    uint32_t important_colours; /* Important colours       */
+    uint32_t header_size {40};      /* Header size in bytes    */
+    int32_t  width  {0};            /* Width of image          */
+    int32_t  height {0};            /* Height of image         */
+    uint16_t planes {1};            /* Number of colour planes */
+    uint16_t bits_per_pix {24};     /* Bits per pixel          */
+    uint32_t compression {0};       /* Compression type        */
+    uint32_t image_size {0};        /* Image size in bytes     */
+    int32_t  x_resolution {2835};   /* Pixels per meter        */
+    int32_t  y_resolution {2835};   /* Pixels per meter        */
+    uint32_t num_colours {0};       /* Number of colours       */
+    uint32_t important_colours {0}; /* Important colours       */
+} __attribute ((__packed__));
 
-    int32_t RealSize () const;
-};
 
-ifstream& operator >> (ifstream& input,        BmpInfoHeader& dib_header);
-ofstream& operator << (ofstream& output, const BmpInfoHeader& dib_header);
+struct BmpColorHeader
+{
+    uint32_t red_mask   {0x00ff0000};       // Bit mask for the red channel
+    uint32_t green_mask {0x0000ff00};       // Bit mask for the green channel
+    uint32_t blue_mask  {0x000000ff};       // Bit mask for the blue channel
+    uint32_t alpha_mask {0xff000000};       // Bit mask for the alpha channel
+    uint32_t color_space_type {0x73524742}; // Default "sRGB" (0x73524742)
+    uint32_t unused[16] {0};                // Unused data for sRGB color space
+} __attribute ((__packed__));
+
 
 #endif  // BMP_IMAGE_HPP

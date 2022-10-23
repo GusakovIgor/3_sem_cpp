@@ -1,3 +1,5 @@
+#include <BmpImage.hpp>
+#include <Image.hpp>
 #include <Commands.hpp>
 #include <CommandFactory.hpp>
 #include "InputManager.hpp"

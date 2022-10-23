@@ -1,3 +1,5 @@
+#include <BmpImage.hpp>
+#include <Image.hpp>
 #include "Commands.hpp"
 
 
@@ -34,9 +36,19 @@ ReplaceColorCmd::ReplaceColorCmd () : Command (CommandType::cmd_replace_color)
 
 std::istream& ReplaceColorCmd::operator_in (std::istream& stream)
 {
-
+	stream >> target_colour >> new_colour;
 
 	return stream;
+}
+
+Pixel ReplaceColorCmd::TargetColour ()
+{
+	return target_colour;
+}
+
+Pixel ReplaceColorCmd::NewColour ()
+{
+	return new_colour;
 }
 
 
@@ -111,9 +123,39 @@ CropCmd::CropCmd () : Command (CommandType::cmd_crop)
 
 std::istream& CropCmd::operator_in (std::istream& stream)
 {
-
+	stream >> start_x >> start_y >> new_width >> new_height;
 
 	return stream;
+}
+
+int CropCmd::StartX ()
+{
+	return start_x;
+}
+
+int CropCmd::StartY ()
+{
+	return start_y;
+}
+
+int CropCmd::NewWidth ()
+{
+	return new_width;
+}
+
+int CropCmd::NewHeight ()
+{
+	return new_height;
+}
+
+Image* CropCmd::OldImage ()
+{
+	return old_image;
+}
+
+void CropCmd::SetOldImage (Image* image)
+{
+	old_image = image;
 }
 
 

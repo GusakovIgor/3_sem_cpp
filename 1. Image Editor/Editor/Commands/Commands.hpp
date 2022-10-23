@@ -75,9 +75,13 @@ public:
 	ReplaceColorCmd ();
 	std::istream& operator_in (std::istream& stream) override;
 
+	Pixel TargetColour ();
+	Pixel NewColour ();
+
 private:
 
-
+	Pixel target_colour;
+	Pixel new_colour;
 };
 
 
@@ -173,9 +177,22 @@ public:
 	CropCmd ();
 	std::istream& operator_in (std::istream& stream) override;
 
+	int StartX ();
+	int StartY ();
+	int NewWidth ();
+	int NewHeight ();
+	Image* OldImage ();
+	void SetOldImage (Image* image);
+
 private:
 
+	int start_x;
+	int start_y;
 
+	int new_width;
+	int new_height;
+
+	Image* old_image;
 };
 
 

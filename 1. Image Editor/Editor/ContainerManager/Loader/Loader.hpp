@@ -19,9 +19,9 @@ public:
 
 private:
 
-    int32_t LoadBmpHeader     (const string& image, ifstream& image_stream, BmpHeader*     header);
-    int32_t LoadBmpInfoHeader (const string& image, ifstream& image_stream, BmpInfoHeader* dib_header);
-
+    int32_t LoadBmpHeader      (const string& image, ifstream& image_stream, BmpHeader*      header);
+    int32_t LoadBmpInfoHeader  (const string& image, ifstream& image_stream, BmpInfoHeader*  dib_header);
+    int32_t LoadBmpColorHeader (const string& image, ifstream& image_stream, BmpColorHeader* colour_header);
     // config values
 
 };

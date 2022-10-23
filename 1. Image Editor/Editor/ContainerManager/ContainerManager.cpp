@@ -1,7 +1,7 @@
-#include <Commands.hpp>
-#include <Image.hpp>
-#include <Container.hpp>
 #include <BmpImage.hpp>
+#include <Image.hpp>
+#include <Commands.hpp>
+#include <Container.hpp>
 #include <Loader.hpp>
 #include <Saver.hpp>
 #include "ContainerManager.hpp"

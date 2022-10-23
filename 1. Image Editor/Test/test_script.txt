@@ -1,0 +1,53 @@
+cd Test
+
+add Negative
+load StalkingCat.bmp
+negative
+save 01.Negative/NegativeStalkingCat.bmp
+cancel
+save 01.Negative/PositiveStalkingCat.bmp
+
+add ReplaceColour
+load StalkingCat.bmp
+replace_color 0xffffff 0xff0000
+save 02.ReplaceColour/RedStalkingCat.bmp
+cancel
+save 02.ReplaceColour/WhiteStalkingCat.bmp
+
+add ImproveClarity
+load StalkingCat.bmp
+improve_clarity
+save 03.ImproveClarity/ClarifiedStalkingCat.bmp
+
+add GaussianFilter
+load StalkingCat.bmp
+gaussian_filter
+save 04.GaussianFilter/GaussianStalkingCat.bmp
+
+add GreyFilter
+load StalkingCat.bmp
+grey_filter
+save 05.GreyFilter/GreyStalkingCat.bmp
+
+add EdgeDetection
+load starship.bmp
+edge_detection
+save 06.EdgeDetection/starship.bmp
+
+add Crop
+load StalkingCat.bmp
+crop 30 6 179 218
+save 10.Crop/CroppedStalkingCat.bmp
+cancel
+save 10.Crop/EntireStalkingCat.bmp
+
+list
+del 7
+del 6
+del 5
+del 4
+del 3
+del 2
+del 1
+
+exit
