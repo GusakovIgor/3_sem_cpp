@@ -20,9 +20,9 @@ struct Pixel
            const uint8_t init_g,
            const uint8_t init_b);
 
-    uint8_t r;
-    uint8_t g;
     uint8_t b;
+    uint8_t g;
+    uint8_t r;
 } __attribute ((__packed__));
 
 istream& operator >> (istream& input, Pixel& pixel);

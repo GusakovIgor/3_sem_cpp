@@ -41,13 +41,19 @@ class Command
 public:
 
 	Command (CommandType init_type);
+	~Command ();
 	CommandType Type ();
+
+	void SetPrevImage (Image* init_prev_image);
+	Image* GetPrevImage ();
 
 	virtual std::istream& operator_in (std::istream& stream) = 0;
 
 private:
 
 	CommandType type;
+
+	Image* prev_image;
 };
 
 std::istream& operator >> (std::istream& stream, Command& command);
@@ -135,9 +141,11 @@ public:
 	EdgeDetectionCmd ();
 	std::istream& operator_in (std::istream& stream) override;
 
+	uint32_t DetectionPercent ();
+
 private:
 
-
+	uint32_t detection_percent;
 };
 
 
@@ -149,9 +157,11 @@ public:
 	ReduceNoiseCmd ();
 	std::istream& operator_in (std::istream& stream) override;
 
+	uint32_t ReducePercent ();
+
 private:
 
-
+	uint32_t reduce_percent;
 };
 
 

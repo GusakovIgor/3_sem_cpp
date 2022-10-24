@@ -36,7 +36,7 @@ bool operator == (const Pixel& left, const Pixel& right)
 {
     return (left.r == right.r &&
             left.g == right.g &&
-            left.g == right.b);
+            left.b == right.b);
 }
 
 
@@ -158,27 +158,19 @@ void Image::ApplyFilterMatrix (const vector <vector <float>>& filter)
 
 ifstream& operator >> (ifstream& input, Image& image)
 {
-    std::cout << "We are here" << std::endl;
     int all_padding_size = image.dib_header.image_size - image.dib_header.width * image.dib_header.height * sizeof (Pixel);
-    std::cout << "We are here 1 (all_padding_size = " << all_padding_size << ")" << std::endl;
     int padding_size = all_padding_size / image.dib_header.height;
-    std::cout << "We are here 2 (padding_size = " << padding_size << std::endl;
 
     char padding[padding_size];
     memset (padding, 0, padding_size);
-    std::cout << "We are here 3" << std::endl;
 
     for (int32_t y = image.height - 1; y >= 0; --y)
     {
-        std::cout << "Line " << y <<  " started read. No seagfault" << std::endl;
-
         for (int32_t x = 0; x < image.width; ++x)
         {
             input.read (reinterpret_cast <char*> (&image.pixels[x][y]), sizeof (Pixel));
         }
         input.read (padding, padding_size);
-
-        std::cout << "Line " << y <<  " read. No seagfault" << std::endl << std::endl;
     }
 
     char left_padding[all_padding_size - padding_size * image.dib_header.height];

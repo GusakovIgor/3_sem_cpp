@@ -5,7 +5,14 @@
 
 Command::Command (CommandType init_type)
 {
+	prev_image = new Image ();
+
 	type = init_type;
+}
+
+Command::~Command ()
+{
+	delete prev_image;
 }
 
 CommandType Command::Type ()
@@ -17,6 +24,17 @@ std::istream& operator >> (std::istream& stream, Command& command)
 {
 	return command.operator_in (stream);
 }
+
+void Command::SetPrevImage (Image* init_prev_image)
+{
+	*prev_image = *init_prev_image;
+}
+
+Image* Command::GetPrevImage ()
+{
+	return prev_image;
+}
+
 
 
 
@@ -90,9 +108,14 @@ EdgeDetectionCmd::EdgeDetectionCmd () : Command (CommandType::cmd_edge_detection
 
 std::istream& EdgeDetectionCmd::operator_in (std::istream& stream)
 {
-
+	stream >> detection_percent;
 
 	return stream;
+}
+
+uint32_t EdgeDetectionCmd::DetectionPercent ()
+{
+	return detection_percent;
 }
 
 
@@ -101,9 +124,14 @@ ReduceNoiseCmd::ReduceNoiseCmd () : Command (CommandType::cmd_reduce_noise)
 
 std::istream& ReduceNoiseCmd::operator_in (std::istream& stream)
 {
-
+	stream >> reduce_percent;
 
 	return stream;
+}
+
+uint32_t ReduceNoiseCmd::ReducePercent ()
+{
+	return reduce_percent;
 }
 
 

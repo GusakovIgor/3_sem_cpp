@@ -62,11 +62,11 @@ int32_t Loader::LoadBmpHeader (const string& image, ifstream& image_stream, BmpH
 {
 	image_stream.read (reinterpret_cast <char*> (header), sizeof (BmpHeader));
 
-	std::cout << "header->type is " << std::hex << header->type << std::dec << std::endl;
-	std::cout << "header->size is " << header->size << std::endl;
-	std::cout << "header->reserved_1 is " << header->reserved_1 << std::endl;
-	std::cout << "header->reserved_2 is " << header->reserved_2 << std::endl;
-	std::cout << "header->offset is " << header->offset << std::endl;
+	// std::cout << "header->type is " << std::hex << header->type << std::dec << std::endl;
+	// std::cout << "header->size is " << header->size << std::endl;
+	// std::cout << "header->reserved_1 is " << header->reserved_1 << std::endl;
+	// std::cout << "header->reserved_2 is " << header->reserved_2 << std::endl;
+	// std::cout << "header->offset is " << header->offset << std::endl;
 
 	// 0x424d = 'B' 'M' (but real bytes reversed)
 	if (header->type != 0x4d42)
@@ -83,17 +83,17 @@ int32_t Loader::LoadBmpInfoHeader (const string& image, ifstream& image_stream, 
 {
 	image_stream.read (reinterpret_cast <char*> (dib_header), sizeof (BmpInfoHeader));
 
-	std::cout << "dib_header->header_size is " << dib_header->header_size << std::endl;
-	std::cout << "dib_header->width is " << dib_header->width << std::endl;
-	std::cout << "dib_header->height is " << dib_header->height << std::endl;
-	std::cout << "dib_header->planes is " << dib_header->planes << std::endl;
-	std::cout << "dib_header->bits_per_pix is " << dib_header->bits_per_pix << std::endl;
-	std::cout << "dib_header->compression is " << dib_header->compression << std::endl;
-	std::cout << "dib_header->image_size is " << dib_header->image_size << std::endl;
-	std::cout << "dib_header->x_resolution is " << dib_header->x_resolution << std::endl;
-	std::cout << "dib_header->y_resolution is " << dib_header->y_resolution << std::endl;
-	std::cout << "dib_header->num_colours is " << dib_header->num_colours << std::endl;
-	std::cout << "dib_header->important_colours is " << dib_header->important_colours << std::endl;
+	// std::cout << "dib_header->header_size is " << dib_header->header_size << std::endl;
+	// std::cout << "dib_header->width is " << dib_header->width << std::endl;
+	// std::cout << "dib_header->height is " << dib_header->height << std::endl;
+	// std::cout << "dib_header->planes is " << dib_header->planes << std::endl;
+	// std::cout << "dib_header->bits_per_pix is " << dib_header->bits_per_pix << std::endl;
+	// std::cout << "dib_header->compression is " << dib_header->compression << std::endl;
+	// std::cout << "dib_header->image_size is " << dib_header->image_size << std::endl;
+	// std::cout << "dib_header->x_resolution is " << dib_header->x_resolution << std::endl;
+	// std::cout << "dib_header->y_resolution is " << dib_header->y_resolution << std::endl;
+	// std::cout << "dib_header->num_colours is " << dib_header->num_colours << std::endl;
+	// std::cout << "dib_header->important_colours is " << dib_header->important_colours << std::endl;
 
 	if (dib_header->bits_per_pix != sizeof (Pixel) * 8)
 	{
@@ -116,13 +116,6 @@ int32_t Loader::LoadBmpInfoHeader (const string& image, ifstream& image_stream, 
 		return -1;
 	}
 
-	// if (dib_header->image_size != dib_header->width * dib_header->height * sizeof (Pixel))
-	// {
-	// 	// TODO: Proper error Handling
-	// 	std::cout << "Cannot open \"" << image << "\": Images with padding not supported" << std::endl;
-	// 	return -1;
-	// }
-
 	return 0;
 }
 
@@ -130,12 +123,12 @@ int32_t Loader::LoadBmpColorHeader (const string& image, ifstream& image_stream,
 {
 	image_stream.read (reinterpret_cast <char*> (colour_header), sizeof (BmpColorHeader));
 
-	std::cout << "colour_header->red_mask is   " << std::hex << colour_header->red_mask << std::dec << std::endl;
-	std::cout << "colour_header->green_mask is " << std::hex << colour_header->green_mask << std::dec << std::endl;
-	std::cout << "colour_header->blue_mask is  " << std::hex << colour_header->blue_mask << std::dec << std::endl;
-	std::cout << "colour_header->alpha_mask is " << std::hex << colour_header->alpha_mask << std::dec << std::endl;
-	std::cout << "colour_header->color_space_type is " << std::hex << colour_header->color_space_type << std::dec << std::endl;
-	std::cout << "colour_header->unused is " << std::hex << colour_header->unused << std::dec << std::endl;
+	// std::cout << "colour_header->red_mask is   " << std::hex << colour_header->red_mask << std::dec << std::endl;
+	// std::cout << "colour_header->green_mask is " << std::hex << colour_header->green_mask << std::dec << std::endl;
+	// std::cout << "colour_header->blue_mask is  " << std::hex << colour_header->blue_mask << std::dec << std::endl;
+	// std::cout << "colour_header->alpha_mask is " << std::hex << colour_header->alpha_mask << std::dec << std::endl;
+	// std::cout << "colour_header->color_space_type is " << std::hex << colour_header->color_space_type << std::dec << std::endl;
+	// std::cout << "colour_header->unused is " << std::hex << colour_header->unused << std::dec << std::endl;
 
 	return 0;
 }

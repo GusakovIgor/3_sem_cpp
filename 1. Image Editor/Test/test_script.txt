@@ -4,44 +4,101 @@ add Negative
 load StalkingCat.bmp
 negative
 save 01.Negative/NegativeStalkingCat.bmp
-cancel
-save 01.Negative/PositiveStalkingCat.bmp
+load Sky.bmp
+negative
+save 01.Negative/NegativeSky.bmp
+load Starship.bmp
+negative
+save 01.Negative/NegativeStarship.bmp
+
 
 add ReplaceColour
 load StalkingCat.bmp
 replace_color 0xffffff 0xff0000
 save 02.ReplaceColour/RedStalkingCat.bmp
-cancel
-save 02.ReplaceColour/WhiteStalkingCat.bmp
+load Sky.bmp
+replace_color 0xffffff 0xff0000
+save 02.ReplaceColour/RedSky.bmp
+load Starship.bmp
+replace_color 0xffffff 0xff0000
+save 02.ReplaceColour/RedStarship.bmp
+
 
 add ImproveClarity
 load StalkingCat.bmp
 improve_clarity
 save 03.ImproveClarity/ClarifiedStalkingCat.bmp
+load Sky.bmp
+improve_clarity
+save 03.ImproveClarity/ClarifiedSky.bmp
+load Starship.bmp
+improve_clarity
+save 03.ImproveClarity/ClarifiedStarship.bmp
+
 
 add GaussianFilter
 load StalkingCat.bmp
 gaussian_filter
 save 04.GaussianFilter/GaussianStalkingCat.bmp
+load Sky.bmp
+gaussian_filter
+save 04.GaussianFilter/GaussianSky.bmp
+load Starship.bmp
+gaussian_filter
+save 04.GaussianFilter/GaussianStarship.bmp
+
 
 add GreyFilter
 load StalkingCat.bmp
 grey_filter
 save 05.GreyFilter/GreyStalkingCat.bmp
+load Sky.bmp
+grey_filter
+save 05.GreyFilter/GreySky.bmp
+load Starship.bmp
+grey_filter
+save 05.GreyFilter/GreyStarship.bmp
+
 
 add EdgeDetection
-load starship.bmp
-edge_detection
-save 06.EdgeDetection/starship.bmp
+load StalkingCat.bmp
+edge_detection 50
+save 06.EdgeDetection/EdgedStalkingCat.bmp
+load Sky.bmp
+edge_detection 50
+save 06.EdgeDetection/EdgedSky.bmp
+load Starship.bmp
+edge_detection 85
+save 06.EdgeDetection/EdgedStarship.bmp
+
+
+add ReduceNoise
+load 03.ImproveClarity/ClarifiedStalkingCat.bmp
+reduce_noise 30
+save 07.ReduceNoise/QuietStalkingCat.bmp
+load 03.ImproveClarity/ClarifiedSky.bmp
+reduce_noise 30
+save 07.ReduceNoise/QuietSky.bmp
+load 03.ImproveClarity/ClarifiedStarship.bmp
+reduce_noise 30
+save 07.ReduceNoise/QuietStarship.bmp
+
 
 add Crop
 load StalkingCat.bmp
 crop 30 6 179 218
 save 10.Crop/CroppedStalkingCat.bmp
-cancel
-save 10.Crop/EntireStalkingCat.bmp
+load Sky.bmp
+crop 0 0 640 120
+save 10.Crop/CroppedSky.bmp
+load Starship.bmp
+crop 111 18 365 345
+save 10.Crop/CroppedStarship.bmp
+
 
 list
+del 9
+del 8
 del 7
 del 6
 del 5
@@ -49,5 +106,4 @@ del 4
 del 3
 del 2
 del 1
-
 exit

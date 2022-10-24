@@ -52,7 +52,7 @@ void Editor::operator() ()
 		}
 		else
 		{
-			running = false;
+			std::cout << "Failed to read next command" << std::endl;
 		}
 	}
 }
