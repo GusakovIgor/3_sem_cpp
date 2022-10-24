@@ -11,11 +11,8 @@ using std::ostream;
 using std::ofstream;
 
 
-
 struct BmpHeader
 {
-    // BmpHeader ();
-
     uint16_t type {0x4d42};     /* Magic identifier                         */
     uint32_t size {0};          /* File size in bytes                       */
     uint16_t reserved_1 {0};    /* Depends on the application created image */
@@ -26,8 +23,6 @@ struct BmpHeader
 
 struct BmpInfoHeader
 {
-    // BmpInfoHeader ();
-
     uint32_t header_size {40};      /* Header size in bytes    */
     int32_t  width  {0};            /* Width of image          */
     int32_t  height {0};            /* Height of image         */

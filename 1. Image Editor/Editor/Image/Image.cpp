@@ -8,16 +8,16 @@
 
 Pixel::Pixel ()
 {
-	r = 0;
-	g = 0;
-	b = 0;
+    r = 0;
+    g = 0;
+    b = 0;
 }
 
 Pixel::Pixel (const uint8_t init_r, const uint8_t init_g, const uint8_t init_b)
 {
-	r = init_r;
-	g = init_g;
-	b = init_b;
+    r = init_r;
+    g = init_g;
+    b = init_b;
 }
 
 istream& operator >> (istream& input, Pixel& pixel)
@@ -42,16 +42,16 @@ bool operator == (const Pixel& left, const Pixel& right)
 
 Image::Image ()
 {
-	width  = 0;
-	height = 0;
+    width  = 0;
+    height = 0;
 }
 
 Image::Image (const int32_t init_width, const int32_t init_height)
 {
-	width  = init_width;
-	height = init_height;
+    width  = init_width;
+    height = init_height;
 
-	pixels.resize (width, vector <Pixel> (height));
+    pixels.resize (width, vector <Pixel> (height));
 }
 
 Image::Image (const BmpHeader& init_header,
@@ -65,7 +65,7 @@ Image::Image (const BmpHeader& init_header,
 
 int32_t Image::Size () const
 {
-	return width * height * sizeof (Pixel);
+    return width * height * sizeof (Pixel);
 }
 
 void Image::ApplyFilterMatrix (const vector <vector <float>>& filter)

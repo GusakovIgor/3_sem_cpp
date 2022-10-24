@@ -6,120 +6,120 @@
 
 Command* CommandFactory::New (const string& command_name)
 {
-	if (constructor.contains (command_name))
-	{
-		cmd_ctr_t command_type_constructor = constructor.at(command_name);
+    if (constructor.contains (command_name))
+    {
+        cmd_ctr_t command_type_constructor = constructor.at(command_name);
 
-		return std::invoke (command_type_constructor);
-	}
+        return std::invoke (command_type_constructor);
+    }
 
-	return nullptr;
+    return nullptr;
 }
 
 
 Command* CommandFactory::NewNegativeCmd ()
 {
-	return new NegativeCmd ();
+    return new NegativeCmd ();
 }
 
 Command* CommandFactory::NewReplaceColorCmd ()
 {
-	return new ReplaceColorCmd ();
+    return new ReplaceColorCmd ();
 }
 
 Command* CommandFactory::NewImproveClarityCmd ()
 {
-	return new ImproveClarityCmd ();
+    return new ImproveClarityCmd ();
 }
 
 Command* CommandFactory::NewGaussianFilterCmd ()
 {
-	return new GaussianFilterCmd ();
+    return new GaussianFilterCmd ();
 }
 
 Command* CommandFactory::NewGreyFilterCmd ()
 {
-	return new GreyFilterCmd ();
+    return new GreyFilterCmd ();
 }
 
 Command* CommandFactory::NewEdgeDetectionCmd ()
 {
-	return new EdgeDetectionCmd ();
+    return new EdgeDetectionCmd ();
 }
 
 Command* CommandFactory::NewReduceNoiseCmd ()
 {
-	return new ReduceNoiseCmd ();
+    return new ReduceNoiseCmd ();
 }
 
 Command* CommandFactory::NewVignetteCmd ()
 {
-	return new VignetteCmd ();
+    return new VignetteCmd ();
 }
 
 Command* CommandFactory::NewCropCmd ()
 {
-	return new CropCmd ();
+    return new CropCmd ();
 }
 
 Command* CommandFactory::NewCompressCmd ()
 {
-	return new CompressCmd ();
+    return new CompressCmd ();
 }
 
 Command* CommandFactory::NewCancelCmd ()
 {
-	return new CancelCmd ();
+    return new CancelCmd ();
 }
 
 
 Command* CommandFactory::NewLoadCmd ()
 {
-	return new LoadCmd ();
+    return new LoadCmd ();
 }
 
 Command* CommandFactory::NewSaveCmd ()
 {
-	return new SaveCmd ();
+    return new SaveCmd ();
 }
 
 Command* CommandFactory::NewListContainersCmd ()
 {
-	return new ListContainersCmd ();
+    return new ListContainersCmd ();
 }
 
 Command* CommandFactory::NewAddContainerCmd ()
 {
-	return new AddContainerCmd ();
+    return new AddContainerCmd ();
 }
 
 Command* CommandFactory::NewDelContainerCmd ()
 {
-	return new DelContainerCmd ();
+    return new DelContainerCmd ();
 }
 
 Command* CommandFactory::NewSwitchContainerCmd ()
 {
-	return new SwitchContainerCmd ();
+    return new SwitchContainerCmd ();
 }
 
 
 Command* CommandFactory::NewListDirectoryCmd ()
 {
-	return new ListDirectoryCmd ();
+    return new ListDirectoryCmd ();
 }
 
 Command* CommandFactory::NewChangeDirectoryCmd ()
 {
-	return new ChangeDirectoryCmd ();
+    return new ChangeDirectoryCmd ();
 }
 
 Command* CommandFactory::NewExitCmd ()
 {
-	return new ExitCmd ();
+    return new ExitCmd ();
 }
 
 Command* CommandFactory::NewHelpCmd ()
 {
-	return new HelpCmd ();
+    return new HelpCmd ();
 }

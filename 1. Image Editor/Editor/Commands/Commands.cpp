@@ -5,34 +5,34 @@
 
 Command::Command (CommandType init_type)
 {
-	prev_image = new Image ();
+    prev_image = new Image ();
 
-	type = init_type;
+    type = init_type;
 }
 
 Command::~Command ()
 {
-	delete prev_image;
+    delete prev_image;
 }
 
 CommandType Command::Type ()
 {
-	return type;
+    return type;
 }
 
 std::istream& operator >> (std::istream& stream, Command& command)
 {
-	return command.operator_in (stream);
+    return command.operator_in (stream);
 }
 
 void Command::SetPrevImage (Image* init_prev_image)
 {
-	*prev_image = *init_prev_image;
+    *prev_image = *init_prev_image;
 }
 
 Image* Command::GetPrevImage ()
 {
-	return prev_image;
+    return prev_image;
 }
 
 
@@ -45,7 +45,7 @@ std::istream& NegativeCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }
 
 
@@ -54,19 +54,19 @@ ReplaceColorCmd::ReplaceColorCmd () : Command (CommandType::cmd_replace_color)
 
 std::istream& ReplaceColorCmd::operator_in (std::istream& stream)
 {
-	stream >> target_colour >> new_colour;
+    stream >> target_colour >> new_colour;
 
-	return stream;
+    return stream;
 }
 
 Pixel ReplaceColorCmd::TargetColour ()
 {
-	return target_colour;
+    return target_colour;
 }
 
 Pixel ReplaceColorCmd::NewColour ()
 {
-	return new_colour;
+    return new_colour;
 }
 
 
@@ -77,7 +77,7 @@ std::istream& ImproveClarityCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }
 
 
@@ -88,7 +88,7 @@ std::istream& GaussianFilterCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }
 
 
@@ -99,7 +99,7 @@ std::istream& GreyFilterCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }
 
 
@@ -108,14 +108,14 @@ EdgeDetectionCmd::EdgeDetectionCmd () : Command (CommandType::cmd_edge_detection
 
 std::istream& EdgeDetectionCmd::operator_in (std::istream& stream)
 {
-	stream >> detection_percent;
+    stream >> detection_percent;
 
-	return stream;
+    return stream;
 }
 
 uint32_t EdgeDetectionCmd::DetectionPercent ()
 {
-	return detection_percent;
+    return detection_percent;
 }
 
 
@@ -124,14 +124,14 @@ ReduceNoiseCmd::ReduceNoiseCmd () : Command (CommandType::cmd_reduce_noise)
 
 std::istream& ReduceNoiseCmd::operator_in (std::istream& stream)
 {
-	stream >> reduce_percent;
+    stream >> reduce_percent;
 
-	return stream;
+    return stream;
 }
 
 uint32_t ReduceNoiseCmd::ReducePercent ()
 {
-	return reduce_percent;
+    return reduce_percent;
 }
 
 
@@ -142,7 +142,7 @@ std::istream& VignetteCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }
 
 
@@ -151,39 +151,39 @@ CropCmd::CropCmd () : Command (CommandType::cmd_crop)
 
 std::istream& CropCmd::operator_in (std::istream& stream)
 {
-	stream >> start_x >> start_y >> new_width >> new_height;
+    stream >> start_x >> start_y >> new_width >> new_height;
 
-	return stream;
+    return stream;
 }
 
 int CropCmd::StartX ()
 {
-	return start_x;
+    return start_x;
 }
 
 int CropCmd::StartY ()
 {
-	return start_y;
+    return start_y;
 }
 
 int CropCmd::NewWidth ()
 {
-	return new_width;
+    return new_width;
 }
 
 int CropCmd::NewHeight ()
 {
-	return new_height;
+    return new_height;
 }
 
 Image* CropCmd::OldImage ()
 {
-	return old_image;
+    return old_image;
 }
 
 void CropCmd::SetOldImage (Image* image)
 {
-	old_image = image;
+    old_image = image;
 }
 
 
@@ -194,7 +194,7 @@ std::istream& CompressCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }
 
 
@@ -205,7 +205,7 @@ std::istream& CancelCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }
 
 
@@ -215,14 +215,14 @@ LoadCmd::LoadCmd () : Command (CommandType::cmd_load)
 
 std::istream& LoadCmd::operator_in (std::istream& stream)
 {
-	stream >> input_name;
+    stream >> input_name;
 
-	return stream;
+    return stream;
 }
 
 string LoadCmd::Name ()
 {
-	return input_name;
+    return input_name;
 }
 
 
@@ -231,14 +231,14 @@ SaveCmd::SaveCmd () : Command (CommandType::cmd_save)
 
 std::istream& SaveCmd::operator_in (std::istream& stream)
 {
-	stream >> output_name;
+    stream >> output_name;
 
-	return stream;
+    return stream;
 }
 
 string SaveCmd::Name ()
 {
-	return output_name;
+    return output_name;
 }
 
 
@@ -249,7 +249,7 @@ std::istream& ListContainersCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }
 
 
@@ -258,14 +258,14 @@ AddContainerCmd::AddContainerCmd () : Command (CommandType::cmd_add_container)
 
 std::istream& AddContainerCmd::operator_in (std::istream& stream)
 {
-	stream >> container_name;
+    stream >> container_name;
 
-	return stream;
+    return stream;
 }
 
 string AddContainerCmd::Name ()
 {
-	return container_name;
+    return container_name;
 }
 
 
@@ -274,14 +274,14 @@ DelContainerCmd::DelContainerCmd () : Command (CommandType::cmd_del_container)
 
 std::istream& DelContainerCmd::operator_in (std::istream& stream)
 {
-	stream >> target_container;
+    stream >> target_container;
 
-	return stream;
+    return stream;
 }
 
 int DelContainerCmd::TargetContainer ()
 {
-	return target_container;
+    return target_container;
 }
 
 
@@ -290,14 +290,14 @@ SwitchContainerCmd::SwitchContainerCmd () : Command (CommandType::cmd_switch_con
 
 std::istream& SwitchContainerCmd::operator_in (std::istream& stream)
 {
-	stream >> target_container;
+    stream >> target_container;
 
-	return stream;
+    return stream;
 }
 
 int SwitchContainerCmd::TargetContainer ()
 {
-	return target_container;
+    return target_container;
 }
 
 
@@ -309,7 +309,7 @@ std::istream& ListDirectoryCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }
 
 
@@ -318,14 +318,14 @@ ChangeDirectoryCmd::ChangeDirectoryCmd () : Command (CommandType::cmd_cd)
 
 std::istream& ChangeDirectoryCmd::operator_in (std::istream& stream)
 {
-	stream >> target_directory;
+    stream >> target_directory;
 
-	return stream;
+    return stream;
 }
 
 string ChangeDirectoryCmd::TargetDirectory ()
 {
-	return target_directory;
+    return target_directory;
 }
 
 
@@ -336,7 +336,7 @@ std::istream& ExitCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }
 
 
@@ -347,5 +347,5 @@ std::istream& HelpCmd::operator_in (std::istream& stream)
 {
 
 
-	return stream;
+    return stream;
 }

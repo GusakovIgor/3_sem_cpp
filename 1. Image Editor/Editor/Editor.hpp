@@ -11,33 +11,33 @@ class Editor
 
 public:
 
-	Editor ();
-	Editor (const int argc, const char* argv[]);
-	~Editor ();
+    Editor ();
+    Editor (const int argc, const char* argv[]);
+    ~Editor ();
 
-	void operator() ();
+    void operator() ();
 
-	void Execute (Command* command);
+    void Execute (Command* command);
 
 private:
 
-	bool running;
+    bool running;
 
-	InputManager*     input_manager;
-	ContainerManager* container_manager;
+    InputManager*     input_manager;
+    ContainerManager* container_manager;
 
-	void ListDirectory   (Command* ls_base);
-	void ChangeDirectory (Command* cd_base);
-	void Exit 			 (Command* exit_base);
-	void Help 			 (Command* help_base);
+    void ListDirectory   (Command* ls_base);
+    void ChangeDirectory (Command* cd_base);
+    void Exit            (Command* exit_base);
+    void Help            (Command* help_base);
 
-	const unordered_map <CommandType, EditorCmdPtr> operations =
-	{
-		{CommandType::cmd_ls,   &Editor::ListDirectory},
-		{CommandType::cmd_cd,   &Editor::ChangeDirectory},
-		{CommandType::cmd_exit, &Editor::Exit},
-		{CommandType::cmd_help, &Editor::Help}
-	};
+    const unordered_map <CommandType, EditorCmdPtr> operations =
+    {
+        {CommandType::cmd_ls,   &Editor::ListDirectory},
+        {CommandType::cmd_cd,   &Editor::ChangeDirectory},
+        {CommandType::cmd_exit, &Editor::Exit},
+        {CommandType::cmd_help, &Editor::Help}
+    };
 };
 
 

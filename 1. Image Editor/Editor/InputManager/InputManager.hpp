@@ -14,41 +14,39 @@ class InputManager
 
 public:
 
-	InputManager ();
-	InputManager (const int argc, const char* argv[]);
-	~InputManager ();
+    InputManager ();
+    InputManager (const int argc, const char* argv[]);
+    ~InputManager ();
 
-	Command* ParseCommand ();
+    Command* ParseCommand ();
 
 private:
 
-	std::streambuf* initial_input;
-	std::stringstream actual_input;
+    std::streambuf* initial_input;
+    std::stringstream actual_input;
 
-	CommandFactory* command_factory;
+    CommandFactory* command_factory;
 };
 
 
 
-// both in cmdline and interacive
-
 const unordered_map <string, string> options_to_commands =
 {
-	{"-negative", 			"negative"			},
-	{"-replace_color",		"replace_color"		},
-	{"-improve_clarity", 	"improve_clarity"	},
-	{"-gaussian_filter", 	"gaussian_filter"	},
-	{"-grey_filter", 		"grey_filter"		},
-	{"-edge_detection", 	"edge_detection"	},
-	{"-reduce_noise", 		"reduce_noise"		},
-	{"-vignette", 			"vignette"			},
-	{"-crop", 				"crop"				},
-	{"-compress", 			"compress"			},
+    {"-negative",           "negative"          },
+    {"-replace_color",      "replace_color"     },
+    {"-improve_clarity",    "improve_clarity"   },
+    {"-gaussian_filter",    "gaussian_filter"   },
+    {"-grey_filter",        "grey_filter"       },
+    {"-edge_detection",     "edge_detection"    },
+    {"-reduce_noise",       "reduce_noise"      },
+    {"-vignette",           "vignette"          },
+    {"-crop",               "crop"              },
+    {"-compress",           "compress"          },
 
-	{"-load", "load"},
-	{"-save", "save"},
+    {"-load", "load"},
+    {"-save", "save"},
 
-	{"--help", "help"},
+    {"--help", "help"},
 };
 
 
