@@ -292,12 +292,176 @@ bool Container::ReduceNoise (Command* reduce_noise_base)
     return true;
 }
 
-
 bool Container::Vignette (Command* vignette_base)
 {
+    VignetteCmd* vignette = dynamic_cast <VignetteCmd*> (vignette_base);
 
+    Pixel vignette_colour = vignette->Colour ();
+
+    double size_factor = sqrt (2.0) * 0.5;
+
+    double vignette_width  = size_factor * image->width  * (vignette->Coverage () / 100.0);
+    double vignette_height = size_factor * image->height * (vignette->Coverage () / 100.0);
+
+    double blackout_size = 0.0;
+
+    if (vignette->Blackout () == 100.0)
+    {
+        blackout_size = vignette_height;
+    }
+    else if (vignette->Blackout () == 0.0)
+    {
+        blackout_size = 0;
+    }
+    else
+    {
+        blackout_size = GetBlackoutSize (vignette->Blackout ());
+    }
+
+    double blend_size_x = vignette_width  - blackout_size;
+    double blend_size_y = vignette_height - blackout_size;
+
+    int num_steps = static_cast <int> (std::min (100.0, std::min (blend_size_x / 2.0, blend_size_y / 2.0)));
+
+    double step_size_x = (num_steps == 0) ? 0 : blend_size_x / static_cast <double> (num_steps);
+    double step_size_y = (num_steps == 0) ? 0 : blend_size_y / static_cast <double> (num_steps);
+
+    vector <double> ring_start_x;
+    vector <double> ring_start_y;
+    vector <double> weight_original;
+    vector <double> weight_vignette;
+
+    GetVignetteRingsAndWeights (num_steps,
+                                step_size_x,
+                                step_size_y,
+                                vignette_width,
+                                vignette_height,
+                                ring_start_x,
+                                ring_start_y,
+                                weight_original,
+                                weight_vignette);
+
+    for (int x = 0; x < image->width; ++x)
+    {
+        for (int y = 0; y < image->height; ++y)
+        {
+            double ellips_related_x = x - image->width / 2;
+            double ellips_related_y = y - image->height / 2;
+            double factor1 = abs (ellips_related_x) / ring_start_x[0];
+            double factor2 = abs (ellips_related_y) / ring_start_y[0];
+            double factor3 = abs (ellips_related_x) / ring_start_x[num_steps];
+            double factor4 = abs (ellips_related_y) / ring_start_y[num_steps];
+
+            // Ellipse equations.
+            // These are distances from the inner and outer boundaries of the two ellipses.
+            double inner_ellips_dist = factor1 * factor1 + factor2 * factor2;
+            double outer_ellips_dist = factor3 * factor3 + factor4 * factor4;
+
+            if (outer_ellips_dist >= 1.0)
+            {
+                // Point is outside the outer ellipse
+                image->pixels[x][y] = vignette_colour;
+            }
+            else if (inner_ellips_dist >= 1.0)
+            {
+                // Point is outside the inner ellipse, i.e.
+                // Point is in between the outermost and innermost ellipses
+                int ring_num = 0;
+
+                for (ring_num = 1; ring_num < num_steps; ++ring_num)
+                {
+                    double factor1 = abs (ellips_related_x) / ring_start_x[ring_num];
+                    double factor2 = abs (ellips_related_y) / ring_start_y[ring_num];
+
+                    double ring_num_ellips_dist = factor1 * factor1 + factor2 * factor2;
+
+                    if (ring_num_ellips_dist < 1.0)
+                    {
+                        break;
+                    }
+                }
+
+                int current_ring_num = ring_num - 1;
+
+                image->pixels[x][y].r = (image->pixels[x][y].r * weight_original[current_ring_num] +
+                                         vignette_colour.r     * weight_vignette[current_ring_num]);
+                image->pixels[x][y].g = (image->pixels[x][y].g * weight_original[current_ring_num] +
+                                         vignette_colour.g     * weight_vignette[current_ring_num]);
+                image->pixels[x][y].b = (image->pixels[x][y].b * weight_original[current_ring_num] +
+                                         vignette_colour.b     * weight_vignette[current_ring_num]);
+            }
+        }
+    }
 
     return true;
+}
+
+double Container::GetBlackoutSize (double blackout_percent)
+{
+    static const double size_factor = sqrt (2.0) * 0.5;
+
+    double blackout_size = 0.0;
+
+    double border_point_x = 0.5 * image->width  * sqrt (1.0 - blackout_percent / 100.0);
+    double border_point_y = 0.5 * image->height * sqrt (1.0 - blackout_percent / 100.0);
+
+    double factor_x = border_point_x / (size_factor * image->width  - blackout_size);
+    double factor_y = border_point_y / (size_factor * image->height - blackout_size);
+
+    while (factor_x * factor_x + factor_y * factor_y <= 1)
+    {
+        ++blackout_size;
+
+        factor_x = border_point_x / (size_factor * image->width  - blackout_size);
+        factor_y = border_point_y / (size_factor * image->height - blackout_size);
+    }
+
+    return blackout_size;
+}
+
+void Container::GetVignetteRingsAndWeights (int num_steps,
+                                            double step_size_x,
+                                            double step_size_y,
+                                            double vignette_width,
+                                            double vignette_height,
+                                            vector <double>& ring_start_x,
+                                            vector <double>& ring_start_y,
+                                            vector <double>& weight_original,
+                                            vector <double>& weight_vignette)
+{
+    static const double size_factor = sqrt (2.0) * 0.5;
+
+    ring_start_x.assign (num_steps + 1, 0);
+    ring_start_y.assign (num_steps + 1, 0);
+    vector <double> ring_middle_x (num_steps, 0);
+    vector <double> ring_middle_y (num_steps, 0);
+
+    ring_start_x[0] = size_factor * image->width  - vignette_width;
+    ring_start_y[0] = size_factor * image->height - vignette_height;
+
+    for (int i = 1; i <= num_steps; ++i)
+    {
+        ring_start_x[i] = (ring_start_x[0] + i * step_size_x);
+        ring_start_y[i] = (ring_start_y[0] + i * step_size_y);
+        ring_middle_x[i - 1] = (ring_start_x[0] + (i - 0.5) * step_size_x);
+        ring_middle_y[i - 1] = (ring_start_y[0] + (i - 0.5) * step_size_y);
+    }
+
+
+    weight_original.assign (num_steps, 0.0);
+    weight_vignette.assign (num_steps, 0.0);
+
+    double blend_size = num_steps * step_size_x;
+    double cos_arg_factor = (step_size_x == 0) ? 0 : M_PI / blend_size;
+
+    for (int i = 0; i < num_steps; ++i)
+    {
+        double cos_arg = 0.8 * (ring_middle_x[i] - ring_start_x[0]) * cos_arg_factor;
+        double cos_val = cos (cos_arg);
+
+        weight_original[i] = 0.5 * (1 + cos_val);
+        weight_vignette[i] = 0.5 * (1 - cos_val);
+    }
 }
 
 

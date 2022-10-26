@@ -84,6 +84,18 @@ reduce_noise 30
 save 07.ReduceNoise/QuietStarship.bmp
 
 
+add Vignette
+load StalkingCat.bmp
+vignette 0 255 0 50 0
+save 08.Vignette/VignettedStalkingCat.bmp
+load Sky.bmp
+vignette 0 255 0 50 10
+save 08.Vignette/VignettedSky.bmp
+load Starship.bmp
+vignette 0 255 0 50 100
+save 08.Vignette/VignettedStarship.bmp
+
+
 add Crop
 load StalkingCat.bmp
 crop 30 6 179 218

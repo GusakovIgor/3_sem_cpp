@@ -140,9 +140,32 @@ VignetteCmd::VignetteCmd () : Command (CommandType::cmd_vignette)
 
 std::istream& VignetteCmd::operator_in (std::istream& stream)
 {
+    int red = 0;
+    int green = 0;
+    int blue = 0;
 
+    stream >> red >> green >> blue >> coverage_percent >> blackout_percent;
+
+    colour.r = red;
+    colour.g = green;
+    colour.b = blue;
 
     return stream;
+}
+
+double VignetteCmd::Coverage ()
+{
+    return coverage_percent;
+}
+
+double VignetteCmd::Blackout ()
+{
+    return blackout_percent;
+}
+
+Pixel VignetteCmd::Colour ()
+{
+    return colour;
 }
 
 

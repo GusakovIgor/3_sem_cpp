@@ -49,6 +49,18 @@ private:
     bool Crop           (Command* crop_base);
     bool Compress       (Command* compress_base);
 
+    double GetBlackoutSize (double blackout_percent);
+
+    void GetVignetteRingsAndWeights (int num_steps,
+                                     double step_size_x,
+                                     double step_size_y,
+                                     double vignette_width,
+                                     double vignette_height,
+                                     vector <double>& ring_start_x,
+                                     vector <double>& ring_start_y,
+                                     vector <double>& weight_original,
+                                     vector <double>& weight_vignette);
+
     const unordered_map <CommandType, ContainerCmdPtr> operations =
     {
         {CommandType::cmd_negative,         &Container::Negative        },

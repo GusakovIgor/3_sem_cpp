@@ -173,9 +173,6 @@ ifstream& operator >> (ifstream& input, Image& image)
         input.read (padding, padding_size);
     }
 
-    char left_padding[all_padding_size - padding_size * image.dib_header.height];
-    input.read (left_padding, all_padding_size - padding_size * image.dib_header.height);
-
     return input;
 }
 

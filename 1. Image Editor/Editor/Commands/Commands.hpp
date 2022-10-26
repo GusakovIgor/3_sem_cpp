@@ -173,9 +173,16 @@ public:
     VignetteCmd ();
     std::istream& operator_in (std::istream& stream) override;
 
+    double Coverage ();
+    double Blackout ();
+    Pixel Colour ();
+
 private:
 
+    double coverage_percent;
+    double blackout_percent;
 
+    Pixel colour;
 };
 
 
