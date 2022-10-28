@@ -10,6 +10,10 @@
 #include "Editor.hpp"
 
 #include <filesystem>
+#include <istream>
+
+
+const char ESC_CSI[] = "\x1b[";
 
 
 Editor::Editor ()
@@ -42,8 +46,15 @@ Editor::~Editor ()
 
 void Editor::operator() ()
 {
+    Clear (nullptr);
+
     while (running)
     {
+        std::cout << ESC_CSI << "38;2;" << "0;204;153" << "m";
+        std::cout << container_manager->ActiveContainerName () << ':';
+        std::cout << ESC_CSI << "38;2;" << "0;102;255" << "m";
+        std::cout << std::filesystem::current_path () << "$ ";
+        std::cout << ESC_CSI << "0" << "m";
         Command* new_command = input_manager->ParseCommand ();
 
         if (new_command)
@@ -79,8 +90,6 @@ void Editor::ListDirectory (Command* ls_base)
     {
         std::cout << (dentry.path ()).filename () << std::endl;
     }
-
-    std::cout << std::endl;
 }
 
 void Editor::ChangeDirectory (Command* cd_base)
@@ -92,11 +101,29 @@ void Editor::ChangeDirectory (Command* cd_base)
 
 void Editor::Exit (Command* exit_base)
 {
+    Clear (nullptr);
+
     running = false;
+}
+
+void Editor::Clear (Command* clear_base)
+{
+    std::cout << ESC_CSI << "2J";
+    std::cout << ESC_CSI << "1H";
 }
 
 void Editor::Help (Command* help_base)
 {
-    std::cout << "You found help command. You're doing fine!" << std::endl;
-    std::cout << "Go on and find out more ways to use this program" << std::endl << std::endl;
+    std::ifstream help_file ("Help.txt");
+
+    if (help_file.is_open ())
+    {
+        std::cout << help_file.rdbuf () << std::endl;
+    }
+    else
+    {
+        std::cout << "No help file found. Using older help version:" << std::endl;
+        std::cout << "You found help command. You're doing fine!" << std::endl;
+        std::cout << "Go on and find out more ways to use this program" << std::endl << std::endl;
+    }
 }

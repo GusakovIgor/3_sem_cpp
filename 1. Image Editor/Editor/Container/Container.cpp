@@ -34,6 +34,30 @@ Container::~Container ()
 }
 
 
+void Container::SetImage (const string& new_image_name, Image* new_image)
+{
+    image = new_image;
+
+    image_name = new_image_name;
+}
+
+Image* Container::GetImage ()
+{
+    return image;
+}
+
+
+string Container::Name ()
+{
+    return name;
+}
+
+string Container::ImageName ()
+{
+    return image_name;
+}
+
+
 
 void Container::Execute (Command* command)
 {
@@ -66,30 +90,6 @@ void Container::Cancel ()
             image = command->GetPrevImage ();
         }
     }
-}
-
-
-void Container::SetImage (const string& new_image_name, Image* new_image)
-{
-    image = new_image;
-
-    image_name = new_image_name;
-}
-
-Image* Container::GetImage ()
-{
-    return image;
-}
-
-
-string Container::Name ()
-{
-    return name;
-}
-
-string Container::ImageName ()
-{
-    return image_name;
 }
 
 
@@ -512,9 +512,88 @@ bool Container::Crop (Command* crop_base)
 }
 
 
-bool Container::Compress (Command* compress_base)
+bool Container::Downscale (Command* downscale_base)
 {
+    DownscaleCmd* downscale = dynamic_cast <DownscaleCmd*> (downscale_base);
 
+    vector <vector <Pixel>> new_image (downscale->NewWidth (), vector <Pixel> (downscale->NewHeight (), Pixel (0, 0, 0)));
+
+    double target_step_x = downscale->NewWidth  () / static_cast <double> (image->width);
+    double target_step_y = downscale->NewHeight () / static_cast <double> (image->height);
+
+    double target_ready_x = 1.0;
+    double target_ready_y = 1.0;
+
+    int target_total_ready_x = 0;
+    int target_total_ready_y = 0;
+
+    for (int x = 0; x < image->width; ++x)
+    {
+        if (target_total_ready_x == downscale->NewWidth ())
+        {
+            break;
+        }
+
+        if (target_ready_x > 1.0)
+        {
+            for (int y = 0; y < image->height; ++y)
+            {
+                if (target_total_ready_y == downscale->NewHeight ())
+                {
+                    break;
+                }
+
+                if (target_ready_y > 1.0)
+                {
+                    int average_r = 0;
+                    int average_g = 0;
+                    int average_b = 0;
+
+                    int block_width  = static_cast <int> (ceil (target_ready_x / target_step_x));
+                    int block_height = static_cast <int> (ceil (target_ready_y / target_step_y));
+
+                    int count = 0;
+
+                    for (int i = 0; i < block_width; ++i)
+                    {
+                        for (int j = 0; j < block_height; ++j)
+                        {
+                            if (x - i >= 0 &&
+                                y - j >= 0)
+                            {
+                                average_r += image->pixels[x - i][y - j].r;
+                                average_g += image->pixels[x - i][y - j].g;
+                                average_b += image->pixels[x - i][y - j].b;
+
+                                ++count;
+                            }
+                        }
+                    }
+
+                    new_image[target_total_ready_x][target_total_ready_y].r = average_r / count;
+                    new_image[target_total_ready_x][target_total_ready_y].g = average_g / count;
+                    new_image[target_total_ready_x][target_total_ready_y].b = average_b / count;
+
+                    target_ready_y -= 1.0;
+                    ++target_total_ready_y;
+                }
+
+                target_ready_y += target_step_y;
+            }
+
+            target_ready_y = 1.0;
+            target_total_ready_y = 0;
+
+            target_ready_x -= 1.0;
+            ++target_total_ready_x;
+        }
+
+        target_ready_x += target_step_x;
+    }
+
+    image->pixels = new_image;
+    image->width  = downscale->NewWidth ();
+    image->height = downscale->NewHeight ();
 
     return true;
 }

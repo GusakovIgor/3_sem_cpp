@@ -21,14 +21,14 @@ public:
     Container (const string& init_name);
     ~Container ();
 
-    void Execute (Command* command);
-    void Cancel  ();
-
     void SetImage (const string& new_image_name, Image* new_image);
     Image* GetImage ();
 
     string Name ();
     string ImageName ();
+
+    void Execute (Command* command);
+    void Cancel  ();
 
 private:
 
@@ -47,7 +47,7 @@ private:
     bool ReduceNoise    (Command* reduce_noise_base);
     bool Vignette       (Command* vignette_base);
     bool Crop           (Command* crop_base);
-    bool Compress       (Command* compress_base);
+    bool Downscale      (Command* downscale_base);
 
     double GetBlackoutSize (double blackout_percent);
 
@@ -71,8 +71,8 @@ private:
         {CommandType::cmd_edge_detection,   &Container::EdgeDetection   },
         {CommandType::cmd_reduce_noise,     &Container::ReduceNoise     },
         {CommandType::cmd_vignette,         &Container::Vignette        },
-        {CommandType::cmd_crop,             &Container::Crop            },
-        {CommandType::cmd_compress,         &Container::Compress        }
+        {CommandType::cmd_downscale,        &Container::Downscale       },
+        {CommandType::cmd_crop,             &Container::Crop            }
     };
 };
 

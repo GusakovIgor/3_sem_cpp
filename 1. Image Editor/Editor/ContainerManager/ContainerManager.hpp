@@ -16,6 +16,8 @@ public:
 
     void Execute (Command* command);
 
+    std::string ActiveContainerName ();
+
 private:
 
     int active_container;

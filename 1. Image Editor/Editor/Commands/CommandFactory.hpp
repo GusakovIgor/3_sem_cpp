@@ -20,7 +20,7 @@ private:
     static Command* NewReduceNoiseCmd ();
     static Command* NewVignetteCmd ();
     static Command* NewCropCmd ();
-    static Command* NewCompressCmd ();
+    static Command* NewDownscaleCmd ();
     static Command* NewCancelCmd ();
 
     static Command* NewLoadCmd ();
@@ -33,6 +33,7 @@ private:
     static Command* NewListDirectoryCmd ();
     static Command* NewChangeDirectoryCmd ();
     static Command* NewExitCmd ();
+    static Command* NewClearCmd ();
     static Command* NewHelpCmd ();
 
     inline static const unordered_map <string, cmd_ctr_t> constructor
@@ -46,7 +47,7 @@ private:
         {"reduce_noise",    CommandFactory::NewReduceNoiseCmd},
         {"vignette",        CommandFactory::NewVignetteCmd},
         {"crop",            CommandFactory::NewCropCmd},
-        {"compress",        CommandFactory::NewCompressCmd},
+        {"downscale",       CommandFactory::NewDownscaleCmd},
         {"cancel",          CommandFactory::NewCancelCmd},
 
         {"load",    CommandFactory::NewLoadCmd},
@@ -59,6 +60,7 @@ private:
         {"ls",      CommandFactory::NewListDirectoryCmd},
         {"cd",      CommandFactory::NewChangeDirectoryCmd},
         {"exit",    CommandFactory::NewExitCmd},
+        {"clear",   CommandFactory::NewClearCmd},
         {"help",    CommandFactory::NewHelpCmd}
     };
 };

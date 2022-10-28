@@ -169,6 +169,27 @@ Pixel VignetteCmd::Colour ()
 }
 
 
+DownscaleCmd::DownscaleCmd () : Command (CommandType::cmd_downscale)
+{}
+
+std::istream& DownscaleCmd::operator_in (std::istream& stream)
+{
+    stream >> new_width >> new_height;
+
+    return stream;
+}
+
+int DownscaleCmd::NewWidth ()
+{
+    return new_width;
+}
+
+int DownscaleCmd::NewHeight ()
+{
+    return new_height;
+}
+
+
 CropCmd::CropCmd () : Command (CommandType::cmd_crop)
 {}
 
@@ -207,17 +228,6 @@ Image* CropCmd::OldImage ()
 void CropCmd::SetOldImage (Image* image)
 {
     old_image = image;
-}
-
-
-CompressCmd::CompressCmd () : Command (CommandType::cmd_compress)
-{}
-
-std::istream& CompressCmd::operator_in (std::istream& stream)
-{
-
-
-    return stream;
 }
 
 
@@ -356,6 +366,16 @@ ExitCmd::ExitCmd () : Command (CommandType::cmd_exit)
 {}
 
 std::istream& ExitCmd::operator_in (std::istream& stream)
+{
+
+
+    return stream;
+}
+
+ClearCmd::ClearCmd () : Command (CommandType::cmd_clear)
+{}
+
+std::istream& ClearCmd::operator_in (std::istream& stream)
 {
 
 

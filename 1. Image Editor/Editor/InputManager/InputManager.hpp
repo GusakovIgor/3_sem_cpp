@@ -40,8 +40,8 @@ const unordered_map <string, string> options_to_commands =
     {"-edge_detection",     "edge_detection"    },
     {"-reduce_noise",       "reduce_noise"      },
     {"-vignette",           "vignette"          },
+    {"-downscale",          "downscale"         },
     {"-crop",               "crop"              },
-    {"-compress",           "compress"          },
 
     {"-load", "load"},
     {"-save", "save"},

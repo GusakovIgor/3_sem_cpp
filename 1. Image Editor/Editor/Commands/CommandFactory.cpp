@@ -62,9 +62,9 @@ Command* CommandFactory::NewCropCmd ()
     return new CropCmd ();
 }
 
-Command* CommandFactory::NewCompressCmd ()
+Command* CommandFactory::NewDownscaleCmd ()
 {
-    return new CompressCmd ();
+    return new DownscaleCmd ();
 }
 
 Command* CommandFactory::NewCancelCmd ()
@@ -117,6 +117,11 @@ Command* CommandFactory::NewChangeDirectoryCmd ()
 Command* CommandFactory::NewExitCmd ()
 {
     return new ExitCmd ();
+}
+
+Command* CommandFactory::NewClearCmd ()
+{
+    return new ClearCmd ();
 }
 
 Command* CommandFactory::NewHelpCmd ()

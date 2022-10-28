@@ -16,8 +16,8 @@ enum class CommandType
     cmd_edge_detection,
     cmd_reduce_noise,
     cmd_vignette,
+    cmd_downscale,
     cmd_crop,
-    cmd_compress,
     cmd_cancel,
 
     cmd_load,
@@ -30,6 +30,7 @@ enum class CommandType
     cmd_ls,
     cmd_cd,
     cmd_exit,
+    cmd_clear,
     cmd_help
 };
 
@@ -186,6 +187,24 @@ private:
 };
 
 
+class DownscaleCmd : public Command
+{
+
+public:
+
+    DownscaleCmd ();
+    std::istream& operator_in (std::istream& stream) override;
+
+    int NewWidth  ();
+    int NewHeight ();
+
+private:
+
+    int new_width;
+    int new_height;
+};
+
+
 class CropCmd : public Command
 {
 
@@ -210,20 +229,6 @@ private:
     int new_height;
 
     Image* old_image;
-};
-
-
-class CompressCmd : public Command
-{
-
-public:
-
-    CompressCmd ();
-    std::istream& operator_in (std::istream& stream) override;
-
-private:
-
-
 };
 
 
@@ -343,6 +348,20 @@ class ExitCmd : public Command
 public:
 
     ExitCmd ();
+    std::istream& operator_in (std::istream& stream) override;
+
+private:
+
+
+};
+
+
+class ClearCmd : public Command
+{
+
+public:
+
+    ClearCmd ();
     std::istream& operator_in (std::istream& stream) override;
 
 private:

@@ -50,6 +50,11 @@ void ContainerManager::Execute (Command* command)
     }
 }
 
+string ContainerManager::ActiveContainerName ()
+{
+    return containers[active_container]->Name ();
+}
+
 
 void ContainerManager::LoadImageToContainer (Command* load_image_base)
 {

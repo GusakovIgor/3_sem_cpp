@@ -1,0 +1,63 @@
+Usage interactive:  build/Main/Main
+Usage command line: build/Main/Main -load INPUT_FILE [OPTION]... -save OUTPUT_FILE
+Edit bitmap image accroding to given commands
+Example: build/Main/Main -load example.bmp -neagative -save negative_example.bmp
+
+
+Miscellaneous:
+    help,               --help              NO_ARGS
+                                                displays this help
+    ls,                 no option           NO_ARGS
+                                                lists current directory
+    cd,                 no option           NEW_DIR
+                                                changing working directory to NEW_DIR
+    exit,               no option           NO_ARGS
+                                                exits from interactive mode
+    clear,              no option           NO_ARGS
+                                                clears terminal screen in interactive mode
+
+Container managing:
+    load,               -load               INPUT_FILE
+                                                loads INPUT_FILE image into active container
+    save,               -save               OUTPUT_FILE
+                                                saves image from active container to OUTPUT_FILE
+    list,               no option           NO_ARGS
+                                                lists all existing containers, their numbers and images
+    add,                no option           CONTAINER_NAME
+                                                adding container with name CONTAINER_NAME
+    del,                no option           CONTAINER_NUM
+                                                deleteing container numbered CONTAINER_NUM
+    switch,             no option           CONTAINER_NUM
+                                                switching to container numbered CONTAINER_NUM
+
+Image editing:
+    negative,           -negative           NO_ARGS
+                                                applies negative effect to the image
+    replace_color,      -replace_color      TARGET_COLOUR NEW_COLOUR
+                                                replaces TARGET_COLOUR with NEW_COLOUR
+    improve_clarity,    -improve_clarity    NO_ARGS
+                                                improves image clarity
+    gaussian_filter,    -gaussian_filter    NO_ARGS
+                                                applies gaussian filter
+    grey_filter,        -grey_filter        NO_ARGS
+                                                turns image to grey
+    edge_detection,     -edge_detection     DETECTION_PERCENT
+                                                highlights objects edges
+                                                DETECTION_PERCENT - how sensetive algirithm would be
+    reduce_noise,       -reduce_noise       REDUCE_PERCENT
+                                            reduces image noise
+                                                REDUCE_PERCENT - how smooth resulting image would be
+    vignette,           -vignette           COVERAGE_PERCENT BLACKOUT_PERCENT
+                                                Applies vignette with following parameters:
+                                                COVERAGE_PERCENT - approximate percent of image space occupied by vignette
+                                                BLACKOUT_PERCENT - percent of vignette space where colour is constant
+    crop,               -crop               TARGET_RECTANGLE
+                                                leaves only TARGET_RECTANGLE from whole image
+                                                TARGET_RECTANGLE - 4 numbers, rectangle to crop from image, fromatted as follows:
+                                                x y width height
+    downscale,          -downscale          NEW_SIZE
+                                                downscales image to NEW_SIZE
+                                                NEW_SIZE - 2 numbers, new size of image, fromatted as follows:
+                                                new_width new_height
+    cancel              no option           NO_ARGS
+                                                cancels last image editing command

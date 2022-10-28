@@ -96,6 +96,18 @@ vignette 0 255 0 50 100
 save 08.Vignette/VignettedStarship.bmp
 
 
+add Downscale
+load StalkingCat.bmp
+downscale 50 50
+save 09.Downscale/DownscaledStalkingCat.bmp
+load Sky.bmp
+downscale 450 150
+save 09.Downscale/DownscaledSky.bmp
+load Starship.bmp
+downscale 400 290
+save 09.Downscale/DownscaledStarship.bmp
+
+
 add Crop
 load StalkingCat.bmp
 crop 30 6 179 218
